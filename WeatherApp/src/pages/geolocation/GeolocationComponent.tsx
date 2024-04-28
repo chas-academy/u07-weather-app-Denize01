@@ -11,7 +11,7 @@ const GeolocationComponent = () => {
   const [locationName, setLocationName] = useState<string | null>(null);
 
   const fetchLocationName = async (latitude: number, longitude: number) => {
-    const apiKey = "c7337c8c72836fe55ef8e53f3e04cbef"; // Your OpenWeatherMap API key
+    const apiKey = "c7337c8c72836fe55ef8e53f3e04cbef"; // OpenWeatherMap API key
     const url = `http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${apiKey}`;
 
     try {

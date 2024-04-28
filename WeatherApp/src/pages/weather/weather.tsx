@@ -113,20 +113,22 @@ const Weather = () => {
             <br></br>
             <br></br>
             <p className="pb-4">Current forecast ⛅ </p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+            <div className="grid grid-cols-1 gap-4">
               {weather.list.slice(0, 5).map((entry: any) => (
                 <div
                   key={entry.dt}
                   className="border border-gray-300 rounded p-2 shadow hover:shadow-md transition-shadow duration-300 hover:bg-gray-100"
                 >
-                  <p>Date: {new Date(entry.dt * 1000).toLocaleString()}</p>
-                  <p>
-                    Temperature🌡: {entry.main.temp}
-                    {unit === "metric" ? "°C" : "°F"}
-                  </p>
-                  <p>Wind 💨: {entry.wind.speed} m/s</p>
-                  <p>Humidity 💧: {entry.main.humidity}%</p>
-                  <p>Description: {entry.weather[0].description}</p>
+                  <div className="flex flex-row justify-between items-center space-x-4">
+                    <p>Date: {new Date(entry.dt * 1000).toLocaleString()}</p>
+                    <p>
+                      Temperature🌡: {entry.main.temp}
+                      {unit === "metric" ? "°C" : "°F"}
+                    </p>
+                    <p>Wind 💨: {entry.wind.speed} m/s</p>
+                    <p>Humidity 💧: {entry.main.humidity}%</p>
+                    {/* <p>Description: {entry.weather[0].description}</p> */}
+                  </div>
                 </div>
               ))}
             </div>
