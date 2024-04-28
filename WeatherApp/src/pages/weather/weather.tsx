@@ -136,7 +136,7 @@ const Weather = () => {
           <br></br>
           <br></br>
           <div>
-            <p>5-Day Forecast: 📅</p>
+            <p className="pb-4">5-Day Forecast: 📅</p>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
               {getUniqueDaysForecast(weather).map((entry: any) => (
                 <div
