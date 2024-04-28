@@ -16,10 +16,10 @@ const router = createBrowserRouter([
     element: (
       <>
         <div>
-          <h1>Welcome to my WeatherApp!</h1>
+          <h1>Weather ya at? 😎</h1>
           <Link to="about">About</Link> | <Link to="app">App</Link> |{" "}
-          <Link to="geolocation">Geolocation</Link> |{" "}
-          <Link to="weather">Weather</Link>
+          <Link to="geolocation">Here you are! 😃 </Link> |{" "}
+          <Link to="weather">Or you could be here! 😏</Link>
         </div>
         <Outlet></Outlet>
       </>
