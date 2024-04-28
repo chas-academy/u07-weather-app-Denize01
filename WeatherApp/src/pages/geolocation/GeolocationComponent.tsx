@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useUserLocationStore } from "../store/useUserLocationStore";
 
 const GeolocationComponent = () => {
-  const userPosition = useUserLocationStore((state: any) => state.userLocation);
+  // const userPosition = useUserLocationStore((state: any) => state.userLocation);
   const setUserPosition = useUserLocationStore(
     (state: any) => state.updateUserLocation
   );
@@ -55,11 +55,13 @@ const GeolocationComponent = () => {
   return (
     <>
       <button onClick={getLocation}>Get Your Location</button>
-      <h2> </h2>
+
       {status && <p>{status}</p>}
-      {locationName && <p>Your location 📍: {locationName}</p>}
-      {userPosition?.latitude && <p>Latitude: {userPosition?.latitude}</p>}
-      {userPosition?.longitude && <p>Longitude: {userPosition?.longitude}</p>}
+      {locationName && (
+        <p className="pt-4">Your location is 📍: {locationName}</p>
+      )}
+      {/* {userPosition?.latitude && <p>Latitude: {userPosition?.latitude}</p>}
+      {userPosition?.longitude && <p>Longitude: {userPosition?.longitude}</p>} */}
     </>
   );
 };

@@ -34,7 +34,7 @@ const Weather = () => {
 
   useEffect(() => {
     if (userPosition.latitude && userPosition.longitude) {
-      getWeather(); // Hämtar väder när komponent mountas/stad ändras
+      getWeather(); // Hämtar väder när komponent mountas/en stad ändras
     }
   }, [unit, city, userPosition.latitude, userPosition.longitude]);
 
@@ -47,9 +47,11 @@ const Weather = () => {
   };
 
   const toggleUnit = () => {
+    //utseendet ändras när man togglar så att man kan välja mellan celsius och fahrenheit
     setUnit((prevUnit) => (prevUnit === "metric" ? "imperial" : "metric"));
   };
 
+  // 5-dagars väderlek
   const getUniqueDaysForecast = (weatherData: any) => {
     const forecasts = weatherData.list;
     const uniqueDays: any[] = [];
@@ -65,7 +67,7 @@ const Weather = () => {
       }
     });
 
-    return uniqueDays.slice(0, 5); // returns the first 5 unique days
+    return uniqueDays.slice(0, 5); // returnerar 5 första dagarna i arrayen
   };
 
   return (

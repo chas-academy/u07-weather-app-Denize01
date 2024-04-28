@@ -20,8 +20,8 @@ const router = createBrowserRouter([
         </nav>
         <div className="pb-6">
           <br></br>
-          <Link to="geolocation">Here you are! 😃 </Link> |{" "}
-          <Link to="weather">Or you could be here! 😏</Link>
+          <Link to="geolocation">Here you are! 😃 </Link> | Or check out whats
+          happening here ➡️ <Link to="weather">Or you could be here! 😏</Link>
         </div>
         <Outlet></Outlet>
       </>
