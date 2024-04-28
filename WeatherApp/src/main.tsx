@@ -15,9 +15,11 @@ const router = createBrowserRouter([
     path: "",
     element: (
       <>
-        <div>
-          <h1>Weather ya at? 😎</h1>
-          <Link to="about">About</Link> | <Link to="app">App</Link> |{" "}
+        <nav className="pb-8 border border-gray-300 rounded p-2">
+          <h1>Weather ya at? 😎🌍</h1>
+        </nav>
+        <div className="pb-6">
+          <br></br>
           <Link to="geolocation">Here you are! 😃 </Link> |{" "}
           <Link to="weather">Or you could be here! 😏</Link>
         </div>
@@ -33,19 +35,6 @@ const router = createBrowserRouter([
       {
         path: "weather",
         element: <Weather></Weather>,
-      },
-      {
-        path: "about",
-        element: (
-          <div>
-            About Us <Link to="crew">Crew</Link> | <Link to="app">App</Link>
-            <Outlet></Outlet>
-          </div>
-        ),
-        children: [
-          { path: "app", element: <p>More info about the app</p> },
-          { path: "crew", element: <p>More info about the crew</p> },
-        ],
       },
     ],
   },

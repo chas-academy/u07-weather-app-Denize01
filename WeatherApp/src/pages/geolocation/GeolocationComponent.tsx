@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useUserLocationStore } from "../store/useUserLocationStore";
 
 const GeolocationComponent = () => {
@@ -54,12 +54,12 @@ const GeolocationComponent = () => {
 
   return (
     <>
-      <button onClick={getLocation}>Get Location</button>
-      <h2>Coordinates for your position:</h2>
+      <button onClick={getLocation}>Get Your Location</button>
+      <h2> </h2>
       {status && <p>{status}</p>}
+      {locationName && <p>Your location 📍: {locationName}</p>}
       {userPosition?.latitude && <p>Latitude: {userPosition?.latitude}</p>}
       {userPosition?.longitude && <p>Longitude: {userPosition?.longitude}</p>}
-      {locationName && <p>Your location 📍: {locationName}</p>}
     </>
   );
 };

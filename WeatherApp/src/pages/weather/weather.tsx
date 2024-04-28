@@ -34,7 +34,7 @@ const Weather = () => {
 
   useEffect(() => {
     if (userPosition.latitude && userPosition.longitude) {
-      getWeather(); // Fetch weather when component mounts or unit/city changes
+      getWeather(); // Hämtar väder när komponent mountas/stad ändras
     }
   }, [unit, city, userPosition.latitude, userPosition.longitude]);
 
@@ -50,17 +50,33 @@ const Weather = () => {
     setUnit((prevUnit) => (prevUnit === "metric" ? "imperial" : "metric"));
   };
 
+  const getUniqueDaysForecast = (weatherData: any) => {
+    const forecasts = weatherData.list;
+    const uniqueDays: any[] = [];
+
+    forecasts.forEach((forecast: any) => {
+      const forecastDate = new Date(forecast.dt * 1000).toDateString();
+      if (
+        !uniqueDays.find(
+          (day: any) => new Date(day.dt * 1000).toDateString() === forecastDate
+        )
+      ) {
+        uniqueDays.push(forecast);
+      }
+    });
+
+    return uniqueDays.slice(0, 5); // returns the first 5 unique days
+  };
+
   return (
     <div
-      className="container bg-grey-lightest mx-auto shadow rounded pb-4 bg-cover"
+      className="container bg-grey-lightest mx-auto shadow rounded pb-4 bg-contain"
       style={{
-        color: "#3887c7",
-        backgroundColor: "#000000",
-        backgroundImage:
-          "url('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdTZlNmFicTl2NDgxc2oxcWZrdjhxN202Mm9tcjh1dWtkc3A5N3o5bCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3oEjHGZkrolm9UgvM4/giphy.gif')",
+        color: "black",
+        backgroundColor: "white",
       }}
     >
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-3 gap-6">
         <input
           className="border-solid border-2 border-gray-600 rounded-md"
           type="text"
@@ -71,43 +87,73 @@ const Weather = () => {
         <button onClick={handleSearch} className="">
           Search
         </button>
-        <button onClick={toggleUnit}>
+
+        <button onClick={toggleUnit} className="">
           Switch to {unit === "metric" ? "°Fahrenheit" : "°Celsius"}
         </button>
       </div>
       <br></br>
       <br></br>
+
       {error && <p>Error: {error}</p>}
       {weather && (
-        <div>
-          <h2>
-            You are here 📍: {weather.city.name}, {weather.city.country}
-          </h2>
-          <p>
-            Sunrise: 🌞{" "}
-            {new Date(weather.city.sunrise * 1000).toLocaleTimeString()}
-          </p>
-          <p>
-            Sunset: 🌄
-            {new Date(weather.city.sunset * 1000).toLocaleTimeString()}
-          </p>
-          <br></br>
-          <br></br>
-          <div className="grid grid-cols-5 gap-4">
-            {weather.list.slice(0, 5).map((entry: any) => (
-              <div key={entry.dt}>
-                <p>Date: {new Date(entry.dt * 1000).toLocaleString()}</p>
-                <p>
-                  Temperature 🌡:{entry.main.temp}{" "}
-                  {unit === "metric" ? "°C" : "°F"}
-                </p>
-                <p>Wind 💨: {entry.wind.speed} m/s</p>
-                <p>Humidity 💧 : {entry.main.humidity}%</p>
-                <p>Description: {entry.weather[0].description}</p>
-              </div>
-            ))}
+        <>
+          <div>
+            <p>
+              Location📍: {weather.city.name}, {weather.city.country}
+            </p>
+            <p>
+              Sunrise: 🌞{" "}
+              {new Date(weather.city.sunrise * 1000).toLocaleTimeString()}
+            </p>
+            <p>
+              Sunset: 🌄
+              {new Date(weather.city.sunset * 1000).toLocaleTimeString()}
+            </p>
+            <br></br>
+            <br></br>
+            <p className="pb-4">Current forecast ⛅ </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+              {weather.list.slice(0, 5).map((entry: any) => (
+                <div
+                  key={entry.dt}
+                  className="border border-gray-300 rounded p-2 shadow hover:shadow-md transition-shadow duration-300 hover:bg-gray-100"
+                >
+                  <p>Date: {new Date(entry.dt * 1000).toLocaleString()}</p>
+                  <p>
+                    Temperature🌡: {entry.main.temp}
+                    {unit === "metric" ? "°C" : "°F"}
+                  </p>
+                  <p>Wind 💨: {entry.wind.speed} m/s</p>
+                  <p>Humidity 💧: {entry.main.humidity}%</p>
+                  <p>Description: {entry.weather[0].description}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+          <br></br>
+          <br></br>
+          <div>
+            <p>5-Day Forecast: 📅</p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+              {getUniqueDaysForecast(weather).map((entry: any) => (
+                <div
+                  key={entry.dt}
+                  className="border border-gray-300 rounded p-2 shadow hover:shadow-md transition-shadow duration-300 hover:bg-gray-100"
+                >
+                  <p>Date: {new Date(entry.dt * 1000).toLocaleString()}</p>
+                  <p>
+                    Temperature🌡: {entry.main.temp}
+                    {unit === "metric" ? "°C" : "°F"}
+                  </p>
+                  <p>Wind 💨: {entry.wind.speed} m/s</p>
+                  <p>Humidity 💧: {entry.main.humidity}%</p>
+                  <p>Description: {entry.weather[0].description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
       )}
     </div>
   );
